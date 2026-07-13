@@ -1,0 +1,91 @@
+@startuml Gesamtarchitektur
+title UML-Klassendiagramm der Gesamtarchitektur
+' ===== Anwendungs- und Persistenzklassen =====
+class Application {
+  + start(): void
+}
+class DashboardController {
+  - repository: Repository
+  - view: DashboardView
+  - service: KennzahlenService
+  + dashboardAnzeigen(): void
+}
+abstract class Repository {
+  + laden(): Studiengang
+  + speichern(s: Studiengang): void
+}
+class JsonRepository {
+  - pfad: String
+  + laden(): Studiengang
+  + speichern(s: Studiengang): void
+}
+class DashboardView {
+  + rendern(daten: DashboardDaten): void
+}
+class DashboardDaten {
+  + restTage: Integer
+  + imPlan: Boolean
+  + aktuellerNotendurchschnitt: Float
+  + zielNotendurchschnitt: Float
+  + erreichteEcts: Integer
+  + geplanteEcts: Integer
+  + aktuellesSemester: Integer
+  + anstehendePruefungen: List<AnstehendePruefung>
+}
+class KennzahlenService {
+  + berechnen(s: Studiengang): DashboardDaten
+}
+class AnstehendePruefung {
+  + modulTitel: String
+  + datum: Date
+  + tageBis: Integer
+}
+' ===== Entity-Klassen =====
+class Studiengang {
+  - name: String
+  - startdatum: Date
+  - zieldatumAbschluss: Date
+  - zielNotendurchschnitt: Float
+  - geplanteEcts: Integer
+  + /aktuellerNotendurchschnitt: Float
+  + /erreichteEctsGesamt: Integer
+}
+class Semester {
+  - nummer: Integer
+  + /erreichteEcts: Integer
+}
+class Modul {
+  - titel: String
+  - ects: Integer
+  + /bestanden: Boolean
+}
+class "Prüfungsleistung" as Pruefungsleistung {
+  - note: Float [0..1]
+  - datum: Date [0..1]
+  + /status: Prüfungsstatus
+}
+enum "Prüfungsstatus" as Pruefungsstatus {
+  OFFEN
+  BESTANDEN
+  NICHT_BESTANDEN
+}
+' ===== Beziehungen =====
+DashboardController o-- "1" Repository 
+DashboardController o-- "1" DashboardView
+DashboardController o-- "1" KennzahlenService
+DashboardView ..> DashboardDaten : nutzt
+Repository <|-- JsonRepository
+Repository ..> Studiengang : liefert
+Studiengang "1" *-- "1..*" Semester
+Semester "1..*" -- "0..*" Modul
+Modul "1" *-- "0..*" Pruefungsleistung
+Pruefungsleistung -right..> Pruefungsstatus
+KennzahlenService ..> Studiengang : liest
+KennzahlenService ..> DashboardDaten : erzeugt
+Application *-- "1" DashboardController
+Application ..> JsonRepository : erzeugt
+Application ..> DashboardView : erzeugt
+Application ..> KennzahlenService : erzeugt
+DashboardDaten *-- "0..*" AnstehendePruefung
+KennzahlenService ..> AnstehendePruefung : erzeugt
+@enduml
