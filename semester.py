@@ -13,3 +13,7 @@ class Semester:
     @property
     def module(self) -> tuple:
         return tuple(self._module)
+    
+    @property
+    def erreichte_ects(self) -> int:
+        return sum(m.ects for m in self._module if m.bestanden)

@@ -1,0 +1,42 @@
+{
+  "name": "Cyber Security",
+  "startdatum": "2025-07-01",
+  "zieldatum_abschluss": "2027-12-01",
+  "ziel_notendurchschnitt": 1.9,
+  "geplante_ects": 180,
+  "semester": [
+    {
+      "nummer": 1,
+      "module": [
+        {
+          "titel": "Mathematik",
+          "ects": 5,
+          "pruefungsleistungen": [
+            { "datum": "2025-09-01", "note": 2.0 }
+          ]
+        },
+        {
+          "titel": "Pentesting",
+          "ects": 5,
+          "pruefungsleistungen": [
+            { "datum": "2026-07-20", "note": null }
+          ]
+        },
+        {
+          "titel": "OOP mit Python",
+          "ects": 5,
+          "pruefungsleistungen": [
+            { "datum": "2026-07-27", "note": null }
+          ]
+        },
+        {
+          "titel": "Statistik",
+          "ects": 5,
+          "pruefungsleistungen": [
+            { "datum": "2026-08-06", "note": null }
+          ]
+        }
+      ]
+    }
+  ]
+}
