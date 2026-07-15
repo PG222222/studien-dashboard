@@ -12,6 +12,20 @@ print("Semester angelegt:", s1, s2)
 print("Anzahl Semester:", len(sg.semester))
 
 # Versuch, von außen etwas anzuhängen:
-sg.semester.append("Schummel-Semester")
+try:
+        sg.semester.append("Schummel-Semester")
+        print("Anhaengen von aussen hat geklappt - schlecht!")
+except AttributeError:
+        print("Anhaengen von aussen wurde verhindert - gut!")
 
 print("Anzahl danach:", len(sg.semester))
+
+from modul import Modul
+
+# Assoziation: dasselbe Modul in zwei Semestern
+oop = Modul("OOP mit Python", 5)
+s1.modul_zuordnen(oop)
+s2.modul_zuordnen(oop)
+
+print("Gleiches Objekt in beiden Semestern:",
+      s1.module[0] is oop and s2.module[0] is oop)
