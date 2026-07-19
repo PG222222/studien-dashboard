@@ -6,10 +6,14 @@ from modul import Modul
 
 
 class JsonRepository(Repository):
+    """Konkrete Speicherloesung: liest und schreibt den Studiengang
+    als JSON-Datei."""
     def __init__(self, pfad: str) -> None:
         self._pfad = pfad
 
     def speichern(self, studiengang: Studiengang) -> None:
+        # Objektbaum in ein verschachteltes dict uebersetzen.
+        # Datumswerte per isoformat() zu Text, da JSON kein date kennt.
         daten = {
             "name": studiengang.name,
             "startdatum": studiengang.startdatum.isoformat(),
@@ -44,6 +48,7 @@ class JsonRepository(Repository):
         with open(self._pfad, "r", encoding="utf-8") as f:
             daten = json.load(f)
 
+        # fromisoformat() macht aus dem Text wieder ein date-Objekt
         studiengang = Studiengang(
             daten["name"],
             date.fromisoformat(daten["startdatum"]),
@@ -52,6 +57,9 @@ class JsonRepository(Repository):
             daten["geplante_ects"],
         )
 
+        # Objektbaum ueber die Factory-Methoden wieder aufbauen
+        # (semester_anlegen / pruefungsleistung_anlegen), damit die
+        # Komposition auch beim Laden erhalten bleibt.
         for s_daten in daten["semester"]:
             semester = studiengang.semester_anlegen(s_daten["nummer"])
             for m_daten in s_daten["module"]:

@@ -12,29 +12,58 @@
           "titel": "Mathematik",
           "ects": 5,
           "pruefungsleistungen": [
-            { "datum": "2025-09-01", "note": 2.0 }
+            {
+              "datum": "2025-09-01",
+              "note": 2.0
+            }
           ]
         },
         {
           "titel": "Pentesting",
           "ects": 5,
           "pruefungsleistungen": [
-            { "datum": "2026-07-20", "note": null }
+            {
+              "datum": "2026-07-20",
+              "note": null
+            },
+            {
+              "datum": "2026-07-15",
+              "note": 1.7
+            },
+            {
+              "datum": "2026-07-15",
+              "note": 2.0
+            }
           ]
         },
         {
           "titel": "OOP mit Python",
           "ects": 5,
           "pruefungsleistungen": [
-            { "datum": "2026-07-27", "note": null }
+            {
+              "datum": "2026-07-27",
+              "note": null
+            }
           ]
         },
         {
           "titel": "Statistik",
           "ects": 5,
           "pruefungsleistungen": [
-            { "datum": "2026-08-06", "note": null }
+            {
+              "datum": "2026-08-06",
+              "note": null
+            },
+            {
+              "datum": "2026-07-15",
+              "note": 2.7
+            }
           ]
+        },
+        {
+          "titel": "Test",
+          "ects": 5,
+          "pruefungsleistungen": []
         }
       ]
     }

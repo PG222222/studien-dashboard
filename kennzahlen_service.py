@@ -5,13 +5,20 @@ from dashboard_daten import DashboardDaten, AnstehendePruefung
 
 
 class KennzahlenService:
+    """Berechnet aus dem Studiengang die fertigen Anzeige-Werte fuers
+    Dashboard. Bewusst von den Entity-Klassen und der View getrennt,
+    damit die View selbst nichts mehr rechnen muss."""
     def berechnen(self, studiengang: Studiengang) -> DashboardDaten:
+        """Ermittelt Resttage, Notenschnitt, ECTS-Fortschritt und die
+        Liste der anstehenden Pruefungen und buendelt sie in DashboardDaten."""
         heute = date.today()
         rest_tage = (studiengang.zieldatum_abschluss - heute).days
         im_plan = rest_tage >= 0
 
         aktuelles_semester = len(studiengang.semester)
 
+        # Nur offene Pruefungen in der Zukunft, sortiert nach Naehe 
+        # das ergibt die Liste "Anstehende Pruefungen" auf dem Dashboard.
         anstehende = []
         for semester in studiengang.semester:
             for modul in semester.module:

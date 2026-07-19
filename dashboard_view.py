@@ -5,6 +5,8 @@ from dashboard_daten import DashboardDaten
 
 
 class DashboardView:
+    """Stellt die DashboardDaten mit rich in der Konsole dar. Enthaelt
+    nur Darstellungslogik, keine Berechnung."""
     def __init__(self) -> None:
         self._console = Console()
 
